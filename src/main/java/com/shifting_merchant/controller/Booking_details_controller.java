@@ -13,37 +13,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shifting_merchant.model.Order_details;
-import com.shifting_merchant.service.Order_details_service;
+import com.shifting_merchant.model.Booking_details;
+import com.shifting_merchant.service.Booking_details_service;
 
 @RestController
 @RequestMapping("/placeorder")
-public class Order_details_controller {
+public class Booking_details_controller {
 
 	@Autowired
-	Order_details_service service;
+	Booking_details_service service;
 	
 	@PostMapping( value = "/placeorder")
-	public ResponseEntity<String> placeOrder(@RequestBody Order_details order_details) {
+	public ResponseEntity<String> placeOrder(@RequestBody Booking_details booking_details) {
 		
-		String message =  service.placeOrder(order_details);
+		String message =  service.placeOrder(booking_details);
 		return new ResponseEntity<String>(message,HttpStatus.OK);
 		
 	}
 	
 	@GetMapping( value = "/getlist")
-	public List<Order_details> getOrderList(){
-		return service.getOrderList();
+	public List<Booking_details> getBookingList(){
+		return service.getBookingList();
 	}
 	
 	@GetMapping( value = "/{id}")
-	public Order_details getOrderById(@PathVariable int id	) {
-		return service.getOrderById(id);
+	public Booking_details getBookingById(@PathVariable int id	) {
+		return service.getBookingById(id);
 	}
 	
-	@GetMapping( value = "/getallinspectedorders/{id}")
-	public List<Order_details> getAllInspectedOrders(@PathVariable int id	) {
-		return service.getAllInspectedOrders(id);
+	@GetMapping( value = "/getallinspectedbookings/{id}")
+	public List<Booking_details> getAllInspectedBookings(@PathVariable int id	) {
+		return service.getAllInspectedBookings(id);
 	}
 	
 	
@@ -51,8 +51,8 @@ public class Order_details_controller {
 	
 	//show completed orders
 	@GetMapping( value = "/getallcompletedorders/{id}", headers="Accept=application/json")
-	public List<Order_details> getAllCompletedOrders(@PathVariable int id){
-		return service.getAllCompletedOrders(id);
+	public List<Booking_details> getAllCompletedBookings(@PathVariable int id){
+		return service.getAllCompletedBookings(id);
 	}
 	
 	
@@ -60,14 +60,14 @@ public class Order_details_controller {
 	//complete order
 	
 	@PutMapping( value = "/completeorder" ,headers="Accept=application/json")
-	public ResponseEntity<Order_details> completeOrder(@RequestBody Order_details order_details){
-		return service.completeOrder(order_details);
+	public ResponseEntity<Booking_details> completeBooking(@RequestBody Booking_details booking_details){
+		return service.completeBooking(booking_details);
 	}
 	//accept order
 	
 	@PutMapping( value = "/inspectorder" ,headers="Accept=application/json")
-	public ResponseEntity<Order_details> inspectOrder(@RequestBody Order_details order_details){
-		return service.inspectOrder(order_details);
+	public ResponseEntity<Booking_details> inspectBooking(@RequestBody Booking_details booking_details){
+		return service.inspectBooking(booking_details);
 	}
 	
 	

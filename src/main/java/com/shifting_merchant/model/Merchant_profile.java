@@ -1,18 +1,18 @@
 package com.shifting_merchant.model;
 
 
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table( name = "merchant_profile")
@@ -20,48 +20,67 @@ public class Merchant_profile {
 
 	@Id
 	@Column( name = "merchant_id")
-	private int merchant_id;
-	
-	@Column( name = "mobilenumber")
-	private long mobilenumber;
-	
-	@Column( name = "merchant_email")
-	private String merchant_email;
+	private long merchant_id;
 	
 	@Column( name = "merchant_name")
 	private String merchant_name;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn( name = "order_id")
-	@JsonBackReference
-	private Order_details order_details;
+	@Column( name = "merchant_email")
+	private String merchant_email;
 	
-	public void setMerchant_id(int merchant_id) {
+	@Column( name = "city")
+	private String city;
+	
+	@Column( name = "mobilenumber")
+	private long mobilenumber;
+	
+	
+	
+	@OneToMany( mappedBy = "merchant_profile",cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Set<Merchant_images> Merchant_images;
+	
+	@OneToMany( mappedBy = "merchant_profile",cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Set<Merchant_reviews> merchant_reviews;
+	
+	@OneToOne( mappedBy = "merchant_profile")
+	private Merchant_price_details merchant_price_details;
+	
+	
+	
+	public Merchant_price_details getMerchant_price_details() {
+		return merchant_price_details;
+	}
+
+	public void setMerchant_price_details(Merchant_price_details merchant_price_details) {
+		this.merchant_price_details = merchant_price_details;
+	}
+
+	
+
+	public Set<Merchant_images> getMerchant_images() {
+		return Merchant_images;
+	}
+
+	public void setMerchant_images(Set<Merchant_images> merchant_images) {
+		Merchant_images = merchant_images;
+	}
+
+	public Set<Merchant_reviews> getMerchant_reviews() {
+		return merchant_reviews;
+	}
+
+	public void setMerchant_reviews(Set<Merchant_reviews> merchant_reviews) {
+		this.merchant_reviews = merchant_reviews;
+	}
+
+	public long getMerchant_id() {
+		return merchant_id;
+	}
+
+	public void setMerchant_id(long merchant_id) {
 		this.merchant_id = merchant_id;
-	}
-
-	
-
-	public void setMerchant_profile_id(int merchant_id) {
-		this.merchant_id = merchant_id;
-	}
-
-	
-
-	public long getMobilenumber() {
-		return mobilenumber;
-	}
-
-	public void setMobilenumber(long mobilenumber) {
-		this.mobilenumber = mobilenumber;
-	}
-
-	public String getMerchant_email() {
-		return merchant_email;
-	}
-
-	public void setMerchant_email(String merchant_email) {
-		this.merchant_email = merchant_email;
 	}
 
 	public String getMerchant_name() {
@@ -72,19 +91,31 @@ public class Merchant_profile {
 		this.merchant_name = merchant_name;
 	}
 
-	public Order_details getOrder_details() {
-		return order_details;
+	public String getCity() {
+		return city;
 	}
 
-
-
-	public void setOrder_details(Order_details order_details) {
-		this.order_details = order_details;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-
-
-	public Merchant_profile() {
-		
+	public long getMobilenumber() {
+		return mobilenumber;
 	}
+
+	public void setMobilenumber(long mobilenumber) {
+		this.mobilenumber = mobilenumber;
+	}
+
+	
+
+	public String getMerchant_email() {
+		return merchant_email;
+	}
+
+	public void setMerchant_email(String merchant_email) {
+		this.merchant_email = merchant_email;
+	}
+	
+	
 }
