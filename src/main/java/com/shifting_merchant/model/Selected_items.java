@@ -31,9 +31,9 @@ public class Selected_items {
 	private String item_type;
 	
 	@ManyToOne( fetch = FetchType.EAGER)
-	@JoinColumn( name = "order_id")
+	@JoinColumn( name = "booking_id")
 	@JsonBackReference
-	private Order_details order_details;
+	private Booking_details booking_details;
 	
 	
 	public int getSelected_items_id() {
@@ -76,24 +76,27 @@ public class Selected_items {
 	}
 
 
+	
+
+
+	public Booking_details getBooking_details() {
+		return booking_details;
+	}
+
+
+	public void setBooking_details(Booking_details booking_details) {
+		this.booking_details = booking_details;
+	}
+
+
 	public Selected_items(int selected_items_id, String item, int quantity, String item_type,
-			Order_details order_details) {
+			Booking_details booking_details) {
 		super();
 		this.selected_items_id = selected_items_id;
 		this.item = item;
 		this.quantity = quantity;
 		this.item_type = item_type;
-		this.order_details = order_details;
-	}
-
-
-	public Order_details getOrder_details() {
-		return order_details;
-	}
-
-
-	public void setOrder_details(Order_details order_details) {
-		this.order_details = order_details;
+		this.booking_details = booking_details;
 	}
 
 

@@ -2,9 +2,8 @@ package com.shifting_merchant.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,32 +11,42 @@ import javax.persistence.Table;
 public class Merchant_account {
 
 	@Id
-	@Column( name = "merchant_id")
-	@GeneratedValue( strategy = GenerationType.AUTO)
-	private int merchant_id;
+	@Column(name = "merchant_id")
+	private long merchant_id;
 	
-	@Column( name = "merchant_name")
+	@Column(name = "merchant_name")
 	private String merchant_name;
 	
-	@Column( name = "merchant_email")
+	@Column(name = "merchant_email")
 	private String merchant_email;
 	
-	@Column( name = "mobilenumber")
+	@Column(name = "city")
+	private String city;
+	
+	@Column(name = "mobilenumber")
 	private long mobilenumber;
 	
-	@Column( name = "merchant_password")
-	private String merchant_password;
+	@OneToOne( mappedBy = "merchant_account")
+	private GSTIN_details GSTIN_details;
 	
-	@Column( name = "otp")
-	private int otp;
+	@OneToOne( mappedBy = "merchant_account")
+	private License_details license_details;
 
 	
+	
+	
+	@Override
+	public String toString() {
+		return "Merchant_account [merchant_id=" + merchant_id + ", merchant_name=" + merchant_name + ", merchant_email="
+				+ merchant_email + ", city=" + city + ", mobilenumber=" + mobilenumber + ", GSTIN_details="
+				+ GSTIN_details + ", license_details=" + license_details + "]";
+	}
 
-	public int getMerchant_id() {
+	public long getMerchant_id() {
 		return merchant_id;
 	}
 
-	public void setMerchant_id(int merchant_id) {
+	public void setMerchant_id(long merchant_id) {
 		this.merchant_id = merchant_id;
 	}
 
@@ -57,6 +66,14 @@ public class Merchant_account {
 		this.merchant_email = merchant_email;
 	}
 
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public long getMobilenumber() {
 		return mobilenumber;
 	}
@@ -65,35 +82,22 @@ public class Merchant_account {
 		this.mobilenumber = mobilenumber;
 	}
 
-	public String getMerchant_password() {
-		return merchant_password;
+	public GSTIN_details getGSTIN_details() {
+		return GSTIN_details;
 	}
 
-	public void setMerchant_password(String merchant_password) {
-		this.merchant_password = merchant_password;
+	public void setGSTIN_details(GSTIN_details gSTIN_details) {
+		GSTIN_details = gSTIN_details;
 	}
 
-	public int getOtp() {
-		return otp;
+	public License_details getLicense_details() {
+		return license_details;
 	}
 
-	public void setOtp(int otp) {
-		this.otp = otp;
+	public void setLicense_details(License_details license_details) {
+		this.license_details = license_details;
 	}
-
 	
-	
-	public Merchant_account(int merchant_id, String merchant_name, String merchant_email, long mobilenumber,
-			String merchant_password, int otp) {
-		super();
-		this.merchant_id = merchant_id;
-		this.merchant_name = merchant_name;
-		this.merchant_email = merchant_email;
-		this.mobilenumber = mobilenumber;
-		this.merchant_password = merchant_password;
-		this.otp = otp;
-	}
-
 	public Merchant_account() {
 		
 	}

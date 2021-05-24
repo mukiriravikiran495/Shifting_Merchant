@@ -8,7 +8,7 @@
 		<version>2.2.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>com.shifting_merchant</groupId>
 	<artifactId>Shifting_Merchant</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Shifting_Merchant</name>
