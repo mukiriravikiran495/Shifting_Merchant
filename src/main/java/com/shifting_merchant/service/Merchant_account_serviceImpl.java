@@ -23,8 +23,8 @@ public class Merchant_account_serviceImpl implements Merchant_account_service{
 	}
 
 	@Override
-	public String createaccount(Merchant_account merchant_account) {
-		return dao.createaccount(merchant_account);
+	public String createaccount(Merchant_account merchant_account,  long merchant_id) {
+		return dao.createaccount(merchant_account, merchant_id);
 	}
 
 	@Override

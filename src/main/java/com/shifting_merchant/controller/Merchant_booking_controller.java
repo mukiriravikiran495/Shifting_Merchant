@@ -35,7 +35,7 @@ public class Merchant_booking_controller {
 	
 	// get all records based on merchant_id
 	@GetMapping( value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Merchant_booking> getBookingsByMerchant_id(@PathVariable int id){
+	public List<Merchant_booking> getBookingsByMerchant_id(@PathVariable long id){
 		return service.getBookingsByMerchant_id(id);		
 	}
 	

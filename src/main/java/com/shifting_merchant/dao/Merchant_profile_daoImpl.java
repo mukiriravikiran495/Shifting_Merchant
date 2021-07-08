@@ -51,36 +51,20 @@ public class Merchant_profile_daoImpl implements Merchant_profile_dao{
 
 	
 	@Override
-	public String createprofile(Merchant_profile merchant_profile) {
-		Session session = sessionFactory.getCurrentSession();
-		Merchant_profile profile = findByMercahnt_id(merchant_profile.getMerchant_id());
-		if(profile == null) {
-			
-		}else {
-			profile.setCity(merchant_profile.getCity());
-			profile.setMerchant_email(merchant_profile.getMerchant_email());
-			profile.setMerchant_id(merchant_profile.getMerchant_id());
-			profile.setMerchant_name(merchant_profile.getMerchant_name());
-			profile.setMobilenumber(merchant_profile.getMobilenumber());
-			
-			session.update(profile);
-		}
+	public String createprofile(Merchant_profile merchant_profile, long merchant_id) {
+		
+		
 		
 		return "Profile added ..!!";
 	}
 
 
-	@SuppressWarnings("rawtypes")
-	private Merchant_profile findByMercahnt_id(long id) {
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from Merchant_profile where merchant_id = :merchant_id");
-		query.setParameter("merchant_id", id);
-		Merchant_profile profile = (Merchant_profile) query.list().get(0);
-		return profile;
-	}
-
+	
 
 	
+	
+
+
 	@Override
 	public ResponseEntity<String> addImage(Merchant_images merchant_images, long id) {
 		Session session = sessionFactory.getCurrentSession();

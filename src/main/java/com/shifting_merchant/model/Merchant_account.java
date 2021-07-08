@@ -1,5 +1,7 @@
 package com.shifting_merchant.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +19,9 @@ public class Merchant_account {
 	@Column(name = "merchant_name")
 	private String merchant_name;
 	
+	@Column(name = "ownerormanagername")
+	private String ownerormanagername;
+	
 	@Column(name = "merchant_email")
 	private String merchant_email;
 	
@@ -25,6 +30,9 @@ public class Merchant_account {
 	
 	@Column(name = "mobilenumber")
 	private long mobilenumber;
+	
+	@Column( name = "registration_date")
+	private Date registration_date;
 	
 	@OneToOne( mappedBy = "merchant_account")
 	private GSTIN_details GSTIN_details;
@@ -35,6 +43,22 @@ public class Merchant_account {
 	
 	
 	
+	public String getOwnerormanagername() {
+		return ownerormanagername;
+	}
+
+	public void setOwnerormanagername(String ownerormanagername) {
+		this.ownerormanagername = ownerormanagername;
+	}
+
+	public Date getRegistration_date() {
+		return registration_date;
+	}
+
+	public void setRegistration_date(Date registration_date) {
+		this.registration_date = registration_date;
+	}
+
 	@Override
 	public String toString() {
 		return "Merchant_account [merchant_id=" + merchant_id + ", merchant_name=" + merchant_name + ", merchant_email="

@@ -41,8 +41,8 @@ public class Merchant_profile_controller {
 	}
 	
 	@PostMapping( value = "/createprofile", headers="Accept=application/json")
-	public ResponseEntity<String> createprofile(@RequestBody Merchant_profile merchant_profile){
-		String message = service.createprofile(merchant_profile);
+	public ResponseEntity<String> createprofile(@RequestBody Merchant_profile merchant_profile, long merchant_id){
+		String message = service.createprofile(merchant_profile, merchant_id);
 		
 		return new ResponseEntity<String>(message,HttpStatus.OK);
 	}

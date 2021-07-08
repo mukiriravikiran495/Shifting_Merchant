@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shifting_merchant.model.GSTIN_details;
 import com.shifting_merchant.model.License_details;
 import com.shifting_merchant.model.Merchant_account;
+import com.shifting_merchant.model.Merchant_credentials;
+import com.shifting_merchant.model.Merchant_profile;
 
 @Repository("merchant_account_dao")
 @Transactional
@@ -33,24 +35,18 @@ public class Merchant_account_daoImpl implements Merchant_account_dao{
 
 
 	@Override
-	public String createaccount(Merchant_account merchant_account) {
+	public String createaccount(Merchant_account merchant_account, long merchant_id) {
 		Session session = factory.getCurrentSession();
-		
-		Merchant_account account = findByMerchant_id(merchant_account.getMerchant_id());
-		System.out.println(account);
-		if(account == null) {
-			System.out.println("Please Login ..!!");
-		}
-		else {
 			GSTIN_details gstdetails = new GSTIN_details();
-			
+			Merchant_account account = new Merchant_account();
 			account.setCity(merchant_account.getCity());
-			account.setMerchant_email(merchant_account.getMerchant_email());
-			account.setMerchant_id(merchant_account.getMerchant_id());
+			account.setMerchant_email(new Merchant_credentials().getMerchant_email());
+			account.setMerchant_id(merchant_id);
 			account.setMerchant_name(merchant_account.getMerchant_name());
 			account.setMobilenumber(merchant_account.getMobilenumber());
-			
-			
+			account.setOwnerormanagername(merchant_account.getOwnerormanagername());
+			account.setRegistration_date(merchant_account.getRegistration_date());
+			session.save(account);
 			gstdetails.setGstin_id(merchant_account.getGSTIN_details().getGstin_id());
 			gstdetails.setGstin_number(merchant_account.getGSTIN_details().getGstin_number());
 			gstdetails.setGstin_registrationdate(merchant_account.getGSTIN_details().getGstin_registrationdate());
@@ -72,11 +68,18 @@ public class Merchant_account_daoImpl implements Merchant_account_dao{
 			session.save(license_details);
 			
 			
-			session.update(account);
+			Merchant_profile profile = new Merchant_profile();
+			profile.setCity(merchant_account.getCity());
+			profile.setMerchant_email(merchant_account.getMerchant_email());
+			profile.setMerchant_id(merchant_id);
+			profile.setMerchant_name(merchant_account.getMerchant_name());
+			profile.setMobilenumber(merchant_account.getMobilenumber());
+			System.out.println("Hello....");
+			session.save(profile);
 			
 			return "Merchant_account created";
-		}
-		return " ";
+		
+		
 		
 	}
 
@@ -84,6 +87,7 @@ public class Merchant_account_daoImpl implements Merchant_account_dao{
 	
 
 
+	@SuppressWarnings("unused")
 	private Merchant_account findByMerchant_id(long id) {
 		Session session =factory.getCurrentSession();
 		Query query = session.createQuery("from Merchant_account where merchant_id = :merchant_id");
