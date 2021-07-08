@@ -20,7 +20,7 @@ public class Merchant_booking_serviceImpl implements Merchant_booking_service{
 	}
 
 	@Override
-	public List<Merchant_booking> getBookingsByMerchant_id(int id) {
+	public List<Merchant_booking> getBookingsByMerchant_id(long id) {
 		
 		return dao.getBookingsByMerchant_id(id);
 	}

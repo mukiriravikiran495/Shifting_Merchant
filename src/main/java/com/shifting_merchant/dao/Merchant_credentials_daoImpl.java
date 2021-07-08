@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shifting_merchant.model.Merchant_account;
-import com.shifting_merchant.model.Merchant_booking;
+
 import com.shifting_merchant.model.Merchant_credentials;
-import com.shifting_merchant.model.Merchant_profile;
 
 @Repository("merchant_credentials_dao")
 @Transactional
@@ -41,22 +39,7 @@ public class Merchant_credentials_daoImpl implements Merchant_credentials_dao{
 					user.setMerchant_name(val.getMerchant_name());
 					user.setMerchant_password(val.getMerchant_password());
 					session.save(user); 
-					Merchant_profile user_profile = new Merchant_profile();
-					user_profile.setMerchant_id(val.getMerchant_id());
-					user_profile.setMerchant_email(val.getMerchant_email());
-					user_profile.setMobilenumber(val.getMobilenumber());
-					user_profile.setMerchant_name(val.getMerchant_name());
 					
-					session.save(user_profile);
-					Merchant_booking merchant_order = new Merchant_booking();
-					merchant_order.setMerchant_id(val.getMerchant_id());
-					session.save(merchant_order);
-					Merchant_account account = new Merchant_account();
-					account.setMerchant_id(val.getMerchant_id());
-					account.setMerchant_email(val.getMerchant_email());
-					account.setMerchant_name(val.getMerchant_name());
-					account.setMobilenumber(val.getMobilenumber());
-					session.save(account);
 					return " User Created";
 				}			
 				else {						

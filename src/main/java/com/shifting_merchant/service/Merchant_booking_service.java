@@ -8,7 +8,7 @@ public interface Merchant_booking_service {
 
 	List<Merchant_booking> getbooking();
 
-	List<Merchant_booking> getBookingsByMerchant_id(int id);
+	List<Merchant_booking> getBookingsByMerchant_id(long id);
 
 	
 	String placeorder(Merchant_booking merchant_booking);

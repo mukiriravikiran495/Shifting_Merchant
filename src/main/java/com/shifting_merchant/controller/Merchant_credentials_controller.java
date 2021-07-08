@@ -80,7 +80,7 @@ public class Merchant_credentials_controller {
 	     String message = userService.createUser(merchant_account);
 	     
 	     return new ResponseEntity<String>(message,HttpStatus.OK);
-	 }
+	}
     
 	@PostMapping( value = "/verifyotp", headers="Accept=application/json")
     public ResponseEntity<String> verifyotp(@RequestBody  Merchant_credentials merchant_account ) {

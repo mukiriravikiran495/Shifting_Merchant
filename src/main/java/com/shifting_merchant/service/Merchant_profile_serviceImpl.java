@@ -36,8 +36,8 @@ public class Merchant_profile_serviceImpl implements Merchant_profile_service{
 
 
 	@Override
-	public String createprofile(Merchant_profile merchant_profile) {
-		return dao.createprofile(merchant_profile);
+	public String createprofile(Merchant_profile merchant_profile, long merchant_id) {
+		return dao.createprofile(merchant_profile, merchant_id);
 	}
 
 

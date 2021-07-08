@@ -33,7 +33,7 @@ public class Merchant_booking_daoImpl implements Merchant_booking_dao{
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public List<Merchant_booking> getBookingsByMerchant_id(int id) {
+	public List<Merchant_booking> getBookingsByMerchant_id(long id) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Merchant_booking where merchant_id = :id");
 		query.setParameter("id", id);

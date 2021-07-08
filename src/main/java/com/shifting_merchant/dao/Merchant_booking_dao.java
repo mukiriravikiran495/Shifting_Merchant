@@ -9,7 +9,7 @@ public interface Merchant_booking_dao {
 
 	List<Merchant_booking> getbookings();
 
-	List<Merchant_booking> getBookingsByMerchant_id(int id);
+	List<Merchant_booking> getBookingsByMerchant_id(long id);
 
 	
 	String placeOrder(Merchant_booking merchant_booking);
