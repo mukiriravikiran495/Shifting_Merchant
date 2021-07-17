@@ -3,7 +3,7 @@ package com.shifting_merchant.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 import com.shifting_merchant.dao.Booking_details_dao;
 
@@ -15,12 +15,7 @@ public class Booking_details_serviceImpl implements Booking_details_service{
 	@Autowired
 	Booking_details_dao dao;
 	
-	@Override
-	public String placeOrder(Booking_details booking_details) {
-		return dao.placeOrder(booking_details);
-		
-	}
-
+	
 	@Override
 	public List<Booking_details> getBookingList() {
 		return dao.getBookingList();
@@ -31,20 +26,7 @@ public class Booking_details_serviceImpl implements Booking_details_service{
 		return dao.getBookingById(id);
 	}
 
-	@Override
-	public ResponseEntity<Booking_details> transistBooking(Booking_details booking_details) {
-		return dao.transistBooking(booking_details);
-	}
-
-	@Override
-	public ResponseEntity<Booking_details> completeBooking(Booking_details booking_details) {
-		return dao.completeBooking(booking_details);
-	}
-
-	@Override
-	public ResponseEntity<Booking_details> inspectBooking(Booking_details booking_details) {
-		return dao.inspectBooking(booking_details);
-	}
+	
 
 	@Override
 	public List<Booking_details> getAllCompletedBookings(int merchant_id) {
@@ -52,13 +34,15 @@ public class Booking_details_serviceImpl implements Booking_details_service{
 	}
 
 	@Override
-	public List<Booking_details> getAllInspectedBookings(int merchant_id) {
-		return dao.getAllInspectedBookings(merchant_id);
+	public String confirmpickup(Booking_details booking_details, long booking_id) {
+		return dao.confirmpickup(booking_details, booking_id);
 	}
 
 	@Override
-	public List<Booking_details> getAllTransistBookings() {
-		return dao.getAllTransistBookings();
+	public String confirmdrop(Booking_details booking_details, long booking_id) {
+		return dao.confirmdrop(booking_details,booking_id);
 	}
+
+	
 
 }

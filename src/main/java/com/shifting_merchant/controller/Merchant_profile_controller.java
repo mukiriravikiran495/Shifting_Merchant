@@ -40,21 +40,16 @@ public class Merchant_profile_controller {
 		return profile;
 	}
 	
-	@PostMapping( value = "/createprofile", headers="Accept=application/json")
-	public ResponseEntity<String> createprofile(@RequestBody Merchant_profile merchant_profile, long merchant_id){
-		String message = service.createprofile(merchant_profile, merchant_id);
-		
-		return new ResponseEntity<String>(message,HttpStatus.OK);
-	}
+	
 	
 	@PutMapping(value="/addimage", headers="Accept=application/json")
 	public ResponseEntity<String> addImage(@RequestBody Merchant_images merchant_images, @RequestParam("merchant_id") long merchant_id){
 		return service.addImage(merchant_images,merchant_id);
 	}
 	
-	@PutMapping(value="/addreview", headers="Accept=application/json")
-	public ResponseEntity<String> addreview(@RequestBody Merchant_reviews merchant_reviews, @RequestParam("merchant_id") long merchant_id){
-		return service.addreview(merchant_reviews,merchant_id);
+	@PostMapping(value="/addreview", headers="Accept=application/json")
+	public ResponseEntity<String> addreview(@RequestBody Merchant_reviews merchant_reviews, long merchant_id){
+		return service.addreview(merchant_reviews, merchant_id);
 	}
 	
 	@DeleteMapping(value="/deleteimage", headers ="Accept=application/json")
@@ -63,7 +58,7 @@ public class Merchant_profile_controller {
 		return new ResponseEntity<String>(message,HttpStatus.GONE);
 	}
 	
-	@PutMapping(value="/addpricedetails", headers="Accept=application/json")
+	@PostMapping(value="/addpricedetails", headers="Accept=application/json")
 	public ResponseEntity<String> addpricedetails(@RequestBody Merchant_price_details merchant_price_details, @RequestParam("merchant_id") long merchant_id){
 		String message = service.addpricedetails(merchant_price_details,merchant_id);
 		
@@ -76,7 +71,7 @@ public class Merchant_profile_controller {
 		
 		return new ResponseEntity<String>(message,HttpStatus.CREATED);
 	}
-	
+	 
 	@PutMapping(value="/updateprofile", headers="Accept=application/json")
 	public ResponseEntity<String> updateprofile(@RequestBody Merchant_profile merchant_profile, @RequestParam("merchant_id") long merchant_id){
 		String message = service.updateprofile(merchant_profile,merchant_id);

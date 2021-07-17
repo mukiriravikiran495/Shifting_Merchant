@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shifting_merchant.model.GSTIN_details;
 import com.shifting_merchant.model.License_details;
 import com.shifting_merchant.model.Merchant_account;
-import com.shifting_merchant.model.Merchant_credentials;
+
 import com.shifting_merchant.model.Merchant_profile;
 
 @Repository("merchant_account_dao")
@@ -35,43 +35,23 @@ public class Merchant_account_daoImpl implements Merchant_account_dao{
 
 
 	@Override
-	public String createaccount(Merchant_account merchant_account, long merchant_id) {
+	public String createaccount(Merchant_account merchant_account) {
 		Session session = factory.getCurrentSession();
-			GSTIN_details gstdetails = new GSTIN_details();
+			
 			Merchant_account account = new Merchant_account();
 			account.setCity(merchant_account.getCity());
-			account.setMerchant_email(new Merchant_credentials().getMerchant_email());
-			account.setMerchant_id(merchant_id);
+			account.setMerchant_email(merchant_account.getMerchant_email());
+			account.setMerchant_id(merchant_account.getMerchant_id());
 			account.setMerchant_name(merchant_account.getMerchant_name());
 			account.setMobilenumber(merchant_account.getMobilenumber());
 			account.setOwnerormanagername(merchant_account.getOwnerormanagername());
 			account.setRegistration_date(merchant_account.getRegistration_date());
 			session.save(account);
-			gstdetails.setGstin_id(merchant_account.getGSTIN_details().getGstin_id());
-			gstdetails.setGstin_number(merchant_account.getGSTIN_details().getGstin_number());
-			gstdetails.setGstin_registrationdate(merchant_account.getGSTIN_details().getGstin_registrationdate());
-			gstdetails.setGstin_state(merchant_account.getGSTIN_details().getGstin_state());
-			gstdetails.setGstin_tradename(merchant_account.getGSTIN_details().getGstin_tradename());
-			gstdetails.setGstin_city(merchant_account.getGSTIN_details().getGstin_city());
-			gstdetails.setMerchant_account(account);
-			
-				session.save(gstdetails);
-			
-			
-			License_details license_details = new License_details();
-			license_details.setExpirydate(merchant_account.getLicense_details().getExpirydate());
-			license_details.setLicense_id(merchant_account.getLicense_details().getLicense_id());
-			license_details.setLicense_number(merchant_account.getLicense_details().getLicense_number());
-			license_details.setRegistrationdate(merchant_account.getLicense_details().getRegistrationdate());
-			license_details.setMerchant_account(account);
-			
-			session.save(license_details);
-			
 			
 			Merchant_profile profile = new Merchant_profile();
 			profile.setCity(merchant_account.getCity());
 			profile.setMerchant_email(merchant_account.getMerchant_email());
-			profile.setMerchant_id(merchant_id);
+			profile.setMerchant_id(merchant_account.getMerchant_id());
 			profile.setMerchant_name(merchant_account.getMerchant_name());
 			profile.setMobilenumber(merchant_account.getMobilenumber());
 			System.out.println("Hello....");

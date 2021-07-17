@@ -6,13 +6,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shifting_merchant.model.Booking_details;
-import com.shifting_merchant.model.Status;
+import com.shifting_merchant.model.Booking_status;
+import com.shifting_merchant.model.Payment_mode;
+import com.shifting_merchant.model.Payment_status;
 
 
 @Repository("booking_details_dao")
@@ -22,12 +22,7 @@ public class Booking_details_daoImpl implements Booking_details_dao{
 	@Autowired
 	SessionFactory sessionFactory;
 	
-	@Override
-	public String placeOrder(Booking_details val) {
-		
-		
-		return "Created ..!!";
-	}
+	
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -48,66 +43,51 @@ public class Booking_details_daoImpl implements Booking_details_dao{
 		return booking_details;
 	}
 
-	@Override
-	public ResponseEntity<Booking_details> transistBooking(Booking_details val) {
-		Session session = sessionFactory.getCurrentSession();
-		Booking_details booking_details = getBookingById(val.getBooking_id());
-		booking_details.setStatus(Status.transist);
-		session.update(booking_details);
-		return new ResponseEntity<Booking_details>(booking_details,HttpStatus.OK);
-	}
-
-	@Override
-	public ResponseEntity<Booking_details> completeBooking(Booking_details val) {
-		Session session = sessionFactory.getCurrentSession();
-		Booking_details booking_details = getBookingById(val.getBooking_id());
-		booking_details.setStatus(Status.Completed);
-		session.update(booking_details);
-		return new ResponseEntity<Booking_details>(booking_details,HttpStatus.OK);
-	}
-
-	@Override
-	public ResponseEntity<Booking_details> inspectBooking(Booking_details val) {
-		Session session = sessionFactory.getCurrentSession();
-		Booking_details booking_details = getBookingById(val.getBooking_id());
-		booking_details.setStatus(Status.Accepted);
-		session.update(booking_details);
-		return new ResponseEntity<Booking_details>(booking_details,HttpStatus.OK);
-	}
+	
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List<Booking_details> getAllCompletedBookings(long merchant_id) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Booking_details where merchant_id = :merchant_id and status = :status");
-		query.setParameter("status", Status.Completed);
+		query.setParameter("status", Booking_status.BookingCompleted);
 		query.setParameter("merchant_id", merchant_id);
 		List<Booking_details> list = query.list();
 		return list;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public List<Booking_details> getAllInspectedBookings(long merchant_id) {
+	public String confirmpickup(Booking_details booking_details, long booking_id) {
 		Session session = sessionFactory.getCurrentSession();
-		System.out.println(merchant_id);
-		Query query = session.createQuery("from Booking_details where merchant_id = :merchant_id and status = :status  ");
-		query.setParameter("merchant_id", merchant_id);
-		query.setParameter("status", Status.Accepted);
-		List<Booking_details> list = query.list();
-		return list;
+		Booking_details details = session.get(Booking_details.class, booking_id);
+		System.out.println(details.getPayment_mode());
+		booking_details.getBooking_status();
+		details.getBooking_status();
+		if( details.getPayment_mode() == Payment_mode.Online && details.getPayment_status() == Payment_status.Paid) {
+			details.setBooking_status(Booking_status.PickupCompleted);
+		}
+		else {
+			details.setBooking_status(Booking_status.PickupCompleted);
+			details.setPayment_status(Payment_status.Paid);
+			details.setPayment_mode(Payment_mode.Offline);
+		}
+
+		session.update(details);
+		return "Updated .. !!";
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public List<Booking_details> getAllTransistBookings() {
+	public String confirmdrop(Booking_details booking_details, long booking_id) {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from Booking_details where status = :status");
-		query.setParameter("status", Status.transist);
-		List<Booking_details> list = query.list();
-		return list;
+		Booking_details details = session.get(booking_details.getClass(), booking_id);
+		details.setBooking_status(Booking_status.DropCompleted);
+		details.setPayment_status(Payment_status.Paid);
+		session.update(details);
+		
+		
+		return "Updated ..!!";
 	}
 
-	
+		
 	
 }

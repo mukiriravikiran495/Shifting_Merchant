@@ -37,7 +37,7 @@ public class License_details {
 	private Date expirydate;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn( name = "booking_id")
+	@JoinColumn( name = "merchant_id")
 	@JsonBackReference
 	private Merchant_account merchant_account;
 	

@@ -21,8 +21,8 @@ public class Merchant_price_details {
 	@Column( name = "merchant_price_details_id")
 	private int merchant_price_details_id;
 	
-	@Column( name = "amount")
-	private long amount;
+	@Column( name = "total_amount")
+	private long total_amount;
 	
 	@Column( name = "shift_type")
 	private String Shift_type;
@@ -36,11 +36,18 @@ public class Merchant_price_details {
 	@Column( name = "labour_charges")
 	private long labour_charges;
 	
-	@Column( name = "installanduninstall")
-	private long installanduninstall;
+	@Column( name = "wrapping_charges")
+	private long wrapping_charges;
+	
+	@Column( name = "grand_total")
+	private long grand_total;
+	
+	@Column( name = "acinstallanduninstall")
+	private long acinstallanduninstall;
 	
 	@Column( name = "drop_date")
 	private Date drop_date;
+	
 	
 	
 	
@@ -50,6 +57,38 @@ public class Merchant_price_details {
 	private Merchant_profile merchant_profile;
 	
 	
+
+	public long getTotal_amount() {
+		return total_amount;
+	}
+
+	public void setTotal_amount(long total_amount) {
+		this.total_amount = total_amount;
+	}
+
+	public long getWrapping_charges() {
+		return wrapping_charges;
+	}
+
+	public void setWrapping_charges(long wrapping_charges) {
+		this.wrapping_charges = wrapping_charges;
+	}
+
+	public long getGrand_total() {
+		return grand_total;
+	}
+
+	public void setGrand_total(long grand_total) {
+		this.grand_total = grand_total;
+	}
+
+	public long getAcinstallanduninstall() {
+		return acinstallanduninstall;
+	}
+
+	public void setAcinstallanduninstall(long acinstallanduninstall) {
+		this.acinstallanduninstall = acinstallanduninstall;
+	}
 
 	public Date getDrop_date() {
 		return drop_date;
@@ -67,14 +106,7 @@ public class Merchant_price_details {
 		this.labour_charges = labour_charges;
 	}
 
-	public long getInstallanduninstall() {
-		return installanduninstall;
-	}
-
-	public void setInstallanduninstall(long installanduninstall) {
-		this.installanduninstall = installanduninstall;
-	}
-
+	
 	public int getMerchant_price_details_id() {
 		return merchant_price_details_id;
 	}
@@ -83,13 +115,7 @@ public class Merchant_price_details {
 		this.merchant_price_details_id = merchant_price_details_id;
 	}
 
-	public long getAmount() {
-		return amount;
-	}
-
-	public void setAmount(long amount) {
-		this.amount = amount;
-	}
+	
 
 	public String getShift_type() {
 		return Shift_type;
@@ -123,12 +149,6 @@ public class Merchant_price_details {
 		this.merchant_profile = merchant_profile;
 	}
 
-	@Override
-	public String toString() {
-		return "Merchant_price_details [merchant_price_details_id=" + merchant_price_details_id + ", amount=" + amount
-				+ ", Shift_type=" + Shift_type + ", tax=" + tax + ", offer=" + offer + ", merchant_profile="
-				+ merchant_profile + "]";
-	}
 	
 	
 	public Merchant_price_details() {
