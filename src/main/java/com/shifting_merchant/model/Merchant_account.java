@@ -61,8 +61,9 @@ public class Merchant_account {
 
 	@Override
 	public String toString() {
-		return "Merchant_account [merchant_id=" + merchant_id + ", merchant_name=" + merchant_name + ", merchant_email="
-				+ merchant_email + ", city=" + city + ", mobilenumber=" + mobilenumber + ", GSTIN_details="
+		return "Merchant_account [merchant_id=" + merchant_id + ", merchant_name=" + merchant_name
+				+ ", ownerormanagername=" + ownerormanagername + ", merchant_email=" + merchant_email + ", city=" + city
+				+ ", mobilenumber=" + mobilenumber + ", registration_date=" + registration_date + ", GSTIN_details="
 				+ GSTIN_details + ", license_details=" + license_details + "]";
 	}
 

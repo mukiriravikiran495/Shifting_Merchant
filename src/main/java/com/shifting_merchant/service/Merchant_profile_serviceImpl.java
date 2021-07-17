@@ -35,11 +35,7 @@ public class Merchant_profile_serviceImpl implements Merchant_profile_service{
 	}
 
 
-	@Override
-	public String createprofile(Merchant_profile merchant_profile, long merchant_id) {
-		return dao.createprofile(merchant_profile, merchant_id);
-	}
-
+	
 
 	@Override
 	public ResponseEntity<String> addImage(Merchant_images merchant_images,long merchant_id) {
@@ -49,7 +45,7 @@ public class Merchant_profile_serviceImpl implements Merchant_profile_service{
 
 	@Override
 	public ResponseEntity<String> addreview(Merchant_reviews merchant_reviews, long merchant_id) {
-		return dao.addreview(merchant_reviews,merchant_id);
+		return dao.addreview(merchant_reviews, merchant_id);
 	}
 
 

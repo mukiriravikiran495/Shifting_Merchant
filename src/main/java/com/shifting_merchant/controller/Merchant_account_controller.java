@@ -31,8 +31,8 @@ public class Merchant_account_controller {
 	}
 	
 	@PostMapping(value = "/createaccount",  headers="Accept=application/json")
-	public ResponseEntity<String> createaccount(@RequestBody Merchant_account merchant_account, long merchant_id){
-		String message = service.createaccount(merchant_account,merchant_id);
+	public ResponseEntity<String> createaccount(@RequestBody Merchant_account merchant_account){
+		String message = service.createaccount(merchant_account);
 		
 		return new ResponseEntity<String>(message,HttpStatus.OK);
 	}

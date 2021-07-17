@@ -1,8 +1,8 @@
 package com.shifting_merchant.dao;
 
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
+
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -51,27 +51,11 @@ public class Merchant_profile_daoImpl implements Merchant_profile_dao{
 
 	
 	@Override
-	public String createprofile(Merchant_profile merchant_profile, long merchant_id) {
-		
-		
-		
-		return "Profile added ..!!";
-	}
-
-
-	
-
-	
-	
-
-
-	@Override
 	public ResponseEntity<String> addImage(Merchant_images merchant_images, long id) {
 		Session session = sessionFactory.getCurrentSession();
 		
 		Merchant_profile profile = session.get(Merchant_profile.class, id);
-		Set<Merchant_images> images = new HashSet<Merchant_images>(); 
-		images.add(merchant_images);
+		
 		
 		Merchant_images img = new Merchant_images();
 		img.setImage(merchant_images.getImage());
@@ -85,12 +69,13 @@ public class Merchant_profile_daoImpl implements Merchant_profile_dao{
 
 	
 	@Override
-	public ResponseEntity<String> addreview(Merchant_reviews merchant_reviews, long id) {
+	public ResponseEntity<String> addreview(Merchant_reviews merchant_reviews, long merchant_id) {
+		System.out.println("Hello...");
 		Session session = sessionFactory.getCurrentSession();
 		
-		Merchant_profile profile = session.get(Merchant_profile.class, id);
-		Set<Merchant_reviews> reviews = new HashSet<Merchant_reviews>(); 
-		reviews.add(merchant_reviews);
+	
+		Merchant_profile profile = session.get(Merchant_profile.class, merchant_id);
+		
 		
 		Merchant_reviews review = new Merchant_reviews();
 		review.setDescription(merchant_reviews.getDescription());
@@ -109,22 +94,22 @@ public class Merchant_profile_daoImpl implements Merchant_profile_dao{
 		Merchant_profile profile  = session.get(Merchant_profile.class, merchant_id);
 		Merchant_price_details details = new Merchant_price_details();
 		
-		
-			details.setAmount(merchant_price_details.getAmount());
-			details.setMerchant_price_details_id(merchant_price_details.getMerchant_price_details_id());
-			details.setOffer(merchant_price_details.getOffer());
-			details.setShift_type(merchant_price_details.getShift_type());
-			details.setTax(merchant_price_details.getTax());
-			details.setMerchant_profile(profile);
-			details.setInstallanduninstall(merchant_price_details.getInstallanduninstall());
-			details.setLabour_charges(merchant_price_details.getLabour_charges());
-			details.setDrop_date(merchant_price_details.getDrop_date());
-			session.save(details);
+		details.setMerchant_price_details_id(merchant_price_details.getMerchant_price_details_id());
+		details.setTotal_amount(merchant_price_details.getTotal_amount());
+		details.setShift_type(merchant_price_details.getShift_type());
+		details.setAcinstallanduninstall(merchant_price_details.getAcinstallanduninstall());
+		details.setDrop_date(merchant_price_details.getDrop_date());
+		details.setGrand_total(merchant_price_details.getGrand_total());
+		details.setLabour_charges(merchant_price_details.getLabour_charges());
+		details.setTax(merchant_price_details.getTax());
+		details.setOffer(merchant_price_details.getOffer());
+		details.setWrapping_charges(merchant_price_details.getWrapping_charges());
+		details.setMerchant_profile(profile);
 		
 		
 		
 		//session.saveOrUpdate(details);
-		session.update(profile);
+		session.save(details);
 		return null;
 	}
 	
@@ -163,18 +148,20 @@ public class Merchant_profile_daoImpl implements Merchant_profile_dao{
 		if(details == null) {
 			return "Not Found ..!!";
 		}else {
-			details.setAmount(merchant_price_details.getAmount());
-			details.setInstallanduninstall(merchant_price_details.getInstallanduninstall());
-			details.setLabour_charges(merchant_price_details.getLabour_charges());
-			details.setMerchant_price_details_id(merchant_price_details.getMerchant_price_details_id());
-			details.setOffer(merchant_price_details.getOffer());
+			
+			details.setTotal_amount(merchant_price_details.getTotal_amount());
 			details.setShift_type(merchant_price_details.getShift_type());
-			details.setTax(merchant_price_details.getTax());
-			details.setMerchant_profile(profile);
+			details.setAcinstallanduninstall(merchant_price_details.getAcinstallanduninstall());
 			details.setDrop_date(merchant_price_details.getDrop_date());
+			details.setGrand_total(merchant_price_details.getGrand_total());
+			details.setLabour_charges(merchant_price_details.getLabour_charges());
+			details.setTax(merchant_price_details.getTax());
+			details.setOffer(merchant_price_details.getOffer());
+			details.setWrapping_charges(merchant_price_details.getWrapping_charges());
+			details.setMerchant_profile(profile);
 			session.update(details);
 		}
-		return " ";
+		return " Updated..!! ";
 	}
 
 

@@ -1,6 +1,7 @@
 package com.shifting_merchant.model;
 
 
+
 import java.util.Date;
 import java.util.Set;
 
@@ -21,8 +22,6 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.shifting_merchant.model.User_profile;
-
 
 @Entity
 @Table( name = "booking_details")
@@ -57,18 +56,18 @@ public class Booking_details {
 	@Column( name = "to_lift")
 	private String to_lift;
 	
+	@Column( name = "drop_date")
+	private Date drop_date;
 	
-	private Status status = Status.Requested;
 	
 	
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
+	private Booking_status booking_status = Booking_status.BookingCompleted;
+	
+	private Payment_mode payment_mode = Payment_mode.Unpaid;
+	
+	private Payment_status payment_status = Payment_status.Unpaid;
+	
+	
 	@OneToOne( mappedBy = "booking_details")
 	private User_profile user_profile;
 	
@@ -76,8 +75,13 @@ public class Booking_details {
 	private Merchant_details merchant_details;
 	
 	@OneToOne( mappedBy = "booking_details")
-	private Final_price_details Final_price_details;
+	private Final_price_details final_price_details;
 	
+	@OneToOne( mappedBy = "booking_details")
+	private Booking_transaction_details booking_transaction_details;
+	
+	@OneToOne( mappedBy = "booking_details")
+	private Shiftyng_transaction_details shiftyng_transaction_details;
 	
 	@OneToMany( mappedBy = "booking_details",cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -93,29 +97,86 @@ public class Booking_details {
 	private Merchant_booking merchant_booking;
 	
 	
+	
+	
 
+	public Shiftyng_transaction_details getShiftyng_transaction_details() {
+		return shiftyng_transaction_details;
+	}
+
+	public void setShiftyng_transaction_details(Shiftyng_transaction_details shiftyng_transaction_details) {
+		this.shiftyng_transaction_details = shiftyng_transaction_details;
+	}
+
+	@Override
+	public String toString() {
+		return "Booking_details [booking_id=" + booking_id + ", from_location=" + from_location + ", to_location="
+				+ to_location + ", shift_type=" + shift_type + ", pickup_date=" + pickup_date + ", from_floor="
+				+ from_floor + ", to_floor=" + to_floor + ", from_lift=" + from_lift + ", to_lift=" + to_lift
+				+ ", drop_date=" + drop_date + ", booking_status=" + booking_status + ", payment_mode=" + payment_mode
+				+ ", payment_status=" + payment_status + ", user_profile=" + user_profile + ", merchant_details="
+				+ merchant_details + ", final_price_details=" + final_price_details + ", booking_transaction_details="
+				+ booking_transaction_details + ", selected_items=" + selected_items + ", user_booking=" + user_booking
+				+ ", merchant_booking=" + merchant_booking + "]";
+	}
+
+	public Payment_status getPayment_status() {
+		return payment_status;
+	}
+
+	public void setPayment_status(Payment_status payment_status) {
+		this.payment_status = payment_status;
+	}
+
+	public Booking_status getBooking_status() {
+		return booking_status;
+	}
+
+	public void setBooking_status(Booking_status booking_status) {
+		this.booking_status = booking_status;
+	}
+
+	
+
+	public Payment_mode getPayment_mode() {
+		return payment_mode;
+	}
+
+	public void setPayment_mode(Payment_mode payment_mode) {
+		this.payment_mode = payment_mode;
+	}
+
+	public Date getDrop_date() {
+		return drop_date;
+	}
+
+	public void setDrop_date(Date drop_date) {
+		this.drop_date = drop_date;
+	}
+
+	public Booking_transaction_details getBooking_transaction_details() {
+		return booking_transaction_details;
+	}
+
+	public void setBooking_transaction_details(Booking_transaction_details booking_transaction_details) {
+		this.booking_transaction_details = booking_transaction_details;
+	}
+
+	public Final_price_details getFinal_price_details() {
+		return final_price_details;
+	}
+
+	public void setFinal_price_details(Final_price_details final_price_details) {
+		this.final_price_details = final_price_details;
+	}
+
+	
 	public Merchant_details getMerchant_details() {
 		return merchant_details;
 	}
 
 	public void setMerchant_details(Merchant_details merchant_details) {
 		this.merchant_details = merchant_details;
-	}
-
-	public Final_price_details getFinal_price_details() {
-		return Final_price_details;
-	}
-
-	public void setFinal_price_details(Final_price_details final_price_details) {
-		Final_price_details = final_price_details;
-	}
-
-	public User_profile getUser_profile() {
-		return user_profile;
-	}
-
-	public void setUser_profile(User_profile user_profile) {
-		this.user_profile = user_profile;
 	}
 
 	public Date getPickup_date() {
@@ -158,11 +219,17 @@ public class Booking_details {
 		this.to_lift = to_lift;
 	}
 
+	public User_profile getUser_profile() {
+		return user_profile;
+	}
+
+	public void setUser_profile(User_profile user_profile) {
+		this.user_profile = user_profile;
+	}
+
 	
 
-	public Merchant_booking getMerchant_booking() {
-		return merchant_booking;
-	}
+	
 
 	public void setMerchant_booking(Merchant_booking merchant_booking) {
 		this.merchant_booking = merchant_booking;

@@ -17,11 +17,11 @@ public interface Merchant_profile_service {
 
 	Merchant_profile getprofilebyMerchant_id(long merchant_id);
 
-	String createprofile(Merchant_profile merchant_profile, long merchant_id);
+	
 
 	ResponseEntity<String> addImage(Merchant_images merchant_images,long merchant_id);
 
-	ResponseEntity<String> addreview(Merchant_reviews merchant_reviews, long merchant_id);
+	ResponseEntity<String> addreview(Merchant_reviews merchant_reviews,long merchant_id);
 
 	String deleteimage(int image_id);
 

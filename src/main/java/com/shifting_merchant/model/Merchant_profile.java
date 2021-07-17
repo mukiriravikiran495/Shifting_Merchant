@@ -1,6 +1,5 @@
 package com.shifting_merchant.model;
 
-
 import java.util.Set;
 
 import javax.persistence.CascadeType;
