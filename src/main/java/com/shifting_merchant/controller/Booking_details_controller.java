@@ -33,7 +33,6 @@ public class Booking_details_controller {
 	}
 	
 	
-	
 	//show completed orders
 	@GetMapping( value = "/getallcompletedorders/{id}", headers="Accept=application/json")
 	public List<Booking_details> getAllCompletedBookings(@PathVariable int id){

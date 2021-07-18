@@ -12,7 +12,6 @@ import com.shifting_merchant.dao.Merchant_profile_dao;
 import com.shifting_merchant.model.Merchant_images;
 import com.shifting_merchant.model.Merchant_price_details;
 import com.shifting_merchant.model.Merchant_profile;
-import com.shifting_merchant.model.Merchant_reviews;
 
 @Service("merchant_profile_service")
 public class Merchant_profile_serviceImpl implements Merchant_profile_service{
@@ -40,12 +39,6 @@ public class Merchant_profile_serviceImpl implements Merchant_profile_service{
 	@Override
 	public ResponseEntity<String> addImage(Merchant_images merchant_images,long merchant_id) {
 		return dao.addImage(merchant_images,merchant_id);
-	}
-
-
-	@Override
-	public ResponseEntity<String> addreview(Merchant_reviews merchant_reviews, long merchant_id) {
-		return dao.addreview(merchant_reviews, merchant_id);
 	}
 
 

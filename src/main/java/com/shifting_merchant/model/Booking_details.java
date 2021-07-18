@@ -67,6 +67,7 @@ public class Booking_details {
 	
 	private Payment_status payment_status = Payment_status.Unpaid;
 	
+	private Shiftyng_payment_status shiftyng_payment_status = Shiftyng_payment_status.Unpaid;
 	
 	@OneToOne( mappedBy = "booking_details")
 	private User_profile user_profile;
@@ -99,6 +100,14 @@ public class Booking_details {
 	
 	
 	
+
+	public Shiftyng_payment_status getShiftyng_payment_status() {
+		return shiftyng_payment_status;
+	}
+
+	public void setShiftyng_payment_status(Shiftyng_payment_status shiftyng_payment_status) {
+		this.shiftyng_payment_status = shiftyng_payment_status;
+	}
 
 	public Shiftyng_transaction_details getShiftyng_transaction_details() {
 		return shiftyng_transaction_details;
