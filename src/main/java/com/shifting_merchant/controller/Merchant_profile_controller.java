@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shifting_merchant.model.Merchant_images;
 import com.shifting_merchant.model.Merchant_price_details;
 import com.shifting_merchant.model.Merchant_profile;
-import com.shifting_merchant.model.Merchant_reviews;
+
 import com.shifting_merchant.service.Merchant_profile_service;
 
 @RestController
@@ -47,10 +47,7 @@ public class Merchant_profile_controller {
 		return service.addImage(merchant_images,merchant_id);
 	}
 	
-	@PostMapping(value="/addreview", headers="Accept=application/json")
-	public ResponseEntity<String> addreview(@RequestBody Merchant_reviews merchant_reviews, long merchant_id){
-		return service.addreview(merchant_reviews, merchant_id);
-	}
+	
 	
 	@DeleteMapping(value="/deleteimage", headers ="Accept=application/json")
 	public ResponseEntity<String> deletereview(@RequestParam("image_id") int image_id){

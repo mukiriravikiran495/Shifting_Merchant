@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.shifting_merchant.model.Booking_details;
 import com.shifting_merchant.model.Booking_status;
+import com.shifting_merchant.model.Final_price_details;
 import com.shifting_merchant.model.Payment_mode;
 import com.shifting_merchant.model.Payment_status;
 
@@ -70,6 +71,12 @@ public class Booking_details_daoImpl implements Booking_details_dao{
 			details.setBooking_status(Booking_status.PickupCompleted);
 			details.setPayment_status(Payment_status.Paid);
 			details.setPayment_mode(Payment_mode.Offline);
+			Final_price_details price= booking_details.getFinal_price_details();
+			long grand_total = price.getGrand_total();
+			long shiftyng_amount = (grand_total * 2)/100;
+			long operator_amount = grand_total - shiftyng_amount;
+			price.setOperator_amount(operator_amount);
+			price.setShiftyng_amount(shiftyng_amount);
 		}
 
 		session.update(details);

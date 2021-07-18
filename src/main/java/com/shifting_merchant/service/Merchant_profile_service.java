@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import com.shifting_merchant.model.Merchant_images;
 import com.shifting_merchant.model.Merchant_price_details;
 import com.shifting_merchant.model.Merchant_profile;
-import com.shifting_merchant.model.Merchant_reviews;
 
 public interface Merchant_profile_service {
 
@@ -21,8 +20,7 @@ public interface Merchant_profile_service {
 
 	ResponseEntity<String> addImage(Merchant_images merchant_images,long merchant_id);
 
-	ResponseEntity<String> addreview(Merchant_reviews merchant_reviews,long merchant_id);
-
+	
 	String deleteimage(int image_id);
 
 	String addpricedetails(Merchant_price_details merchant_price_details, long merchant_id);

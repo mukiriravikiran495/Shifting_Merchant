@@ -12,25 +12,23 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-@Table( name = "merchant_reviews")
-public class Merchant_reviews {
+@Table( name = "user_reviews")
+public class User_reviews {
 
 	@Id
-	@Column( name = "merchant_id")
-	private long merchant_id;
+	@Column( name = "user_id")
+	private long user_id;
 	
-	@OneToMany( mappedBy = "merchant_reviews")
+	@OneToMany( mappedBy = "user_reviews")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Set<Reviews> reviews;
 
-	
-
-	public long getMerchant_id() {
-		return merchant_id;
+	public long getUser_id() {
+		return user_id;
 	}
 
-	public void setMerchant_id(long merchant_id) {
-		this.merchant_id = merchant_id;
+	public void setUser_id(long user_id) {
+		this.user_id = user_id;
 	}
 
 	public Set<Reviews> getReviews() {
@@ -40,8 +38,8 @@ public class Merchant_reviews {
 	public void setReviews(Set<Reviews> reviews) {
 		this.reviews = reviews;
 	}
-
-	public Merchant_reviews() {
+	
+	public User_reviews() {
 		
 	}
 	

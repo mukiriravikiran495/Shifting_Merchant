@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shifting_merchant.model.Merchant_images;
 import com.shifting_merchant.model.Merchant_price_details;
 import com.shifting_merchant.model.Merchant_profile;
-import com.shifting_merchant.model.Merchant_reviews;
 
 
 @Repository("merchant_profile_dao")
@@ -68,26 +67,7 @@ public class Merchant_profile_daoImpl implements Merchant_profile_dao{
 
 
 	
-	@Override
-	public ResponseEntity<String> addreview(Merchant_reviews merchant_reviews, long merchant_id) {
-		System.out.println("Hello...");
-		Session session = sessionFactory.getCurrentSession();
-		
 	
-		Merchant_profile profile = session.get(Merchant_profile.class, merchant_id);
-		
-		
-		Merchant_reviews review = new Merchant_reviews();
-		review.setDescription(merchant_reviews.getDescription());
-		review.setRating(merchant_reviews.getRating());
-		review.setReview_id(merchant_reviews.getReview_id());
-		review.setMerchant_profile(profile);
-		
-		session.save(review);
-		session.update(profile);
-		return new ResponseEntity<String>( "Review added Succesfully.. !!",HttpStatus.CREATED);
-	}
-
 	@Override
 	public String addpricedetails(Merchant_price_details merchant_price_details, long merchant_id) {
 		Session session = sessionFactory.getCurrentSession();
