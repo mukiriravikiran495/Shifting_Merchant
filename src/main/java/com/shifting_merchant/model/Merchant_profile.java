@@ -39,9 +39,7 @@ public class Merchant_profile {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Set<Merchant_images> Merchant_images;
 	
-	@OneToMany( mappedBy = "merchant_profile",cascade = CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private Set<Merchant_reviews> merchant_reviews;
+	
 	
 	@OneToOne( mappedBy = "merchant_profile")
 	private Merchant_price_details merchant_price_details;
@@ -66,14 +64,7 @@ public class Merchant_profile {
 		Merchant_images = merchant_images;
 	}
 
-	public Set<Merchant_reviews> getMerchant_reviews() {
-		return merchant_reviews;
-	}
-
-	public void setMerchant_reviews(Set<Merchant_reviews> merchant_reviews) {
-		this.merchant_reviews = merchant_reviews;
-	}
-
+	
 	public long getMerchant_id() {
 		return merchant_id;
 	}
