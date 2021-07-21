@@ -123,6 +123,7 @@ public class Merchant_account {
 		this.license_details = license_details;
 	}
 	
+	
 	public Merchant_account() {
 		
 	}

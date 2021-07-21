@@ -10,12 +10,14 @@ public interface Merchant_account_service {
 
 	List<Merchant_account> getMerchantaccounts();
 
-	String createaccount(Merchant_account merchant_account);
+	String createaccount(Merchant_account merchant_account, long merchant_id);
 
 	List<GSTIN_details> getgstin_details();
 
 	License_details findByLicense_details(long license_number);
 
 	GSTIN_details findByGstin_number(long license_number);
+
+	String updateaccount(Merchant_account merchant_account, long merchant_id);
 
 }

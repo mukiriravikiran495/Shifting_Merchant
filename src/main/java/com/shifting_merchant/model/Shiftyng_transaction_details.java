@@ -18,8 +18,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Shiftyng_transaction_details {
 
 	@Id
-	@Column( name = "shiftyng_transaction_details_id")
-	private int shiftyng_transaction_details_id;
+	@Column( name = "shiftyng_transaction_id")
+	private int shiftyng_transaction_id;
 	
 	@Column( name = "transaction_id")
 	private int transaction_id;
@@ -36,12 +36,13 @@ public class Shiftyng_transaction_details {
 	@JsonBackReference
 	private Booking_details booking_details;
 
-	public int getShiftyng_transaction_details_id() {
-		return shiftyng_transaction_details_id;
+	
+	public int getShiftyng_transaction_id() {
+		return shiftyng_transaction_id;
 	}
 
-	public void setShiftyng_transaction_details_id(int shiftyng_transaction_details_id) {
-		this.shiftyng_transaction_details_id = shiftyng_transaction_details_id;
+	public void setShiftyng_transaction_id(int shiftyng_transaction_id) {
+		this.shiftyng_transaction_id = shiftyng_transaction_id;
 	}
 
 	public int getTransaction_id() {

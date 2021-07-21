@@ -1,5 +1,8 @@
 package com.shifting_merchant.dao;
 
+
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -14,6 +17,7 @@ import com.shifting_merchant.model.Booking_status;
 import com.shifting_merchant.model.Final_price_details;
 import com.shifting_merchant.model.Payment_mode;
 import com.shifting_merchant.model.Payment_status;
+import com.shifting_merchant.model.Shiftyng_payment_status;
 
 
 @Repository("booking_details_dao")
@@ -46,24 +50,15 @@ public class Booking_details_daoImpl implements Booking_details_dao{
 
 	
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public List<Booking_details> getAllCompletedBookings(long merchant_id) {
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from Booking_details where merchant_id = :merchant_id and status = :status");
-		query.setParameter("status", Booking_status.BookingCompleted);
-		query.setParameter("merchant_id", merchant_id);
-		List<Booking_details> list = query.list();
-		return list;
-	}
+	
 
 	@Override
 	public String confirmpickup(Booking_details booking_details, long booking_id) {
 		Session session = sessionFactory.getCurrentSession();
 		Booking_details details = session.get(Booking_details.class, booking_id);
-		System.out.println(details.getPayment_mode());
-		booking_details.getBooking_status();
-		details.getBooking_status();
+		System.out.println("payment_mode "+details.getPayment_mode());
+		System.out.println("details "+details);
+	
 		if( details.getPayment_mode() == Payment_mode.Online && details.getPayment_status() == Payment_status.Paid) {
 			details.setBooking_status(Booking_status.PickupCompleted);
 		}
@@ -71,12 +66,17 @@ public class Booking_details_daoImpl implements Booking_details_dao{
 			details.setBooking_status(Booking_status.PickupCompleted);
 			details.setPayment_status(Payment_status.Paid);
 			details.setPayment_mode(Payment_mode.Offline);
-			Final_price_details price= booking_details.getFinal_price_details();
+			Date date = new Date();
+			details.setPayment_date(date);
+			Final_price_details price= details.getFinal_price_details();
+			System.out.println("final_price_details "+price);
 			long grand_total = price.getGrand_total();
+			
 			long shiftyng_amount = (grand_total * 2)/100;
 			long operator_amount = grand_total - shiftyng_amount;
 			price.setOperator_amount(operator_amount);
 			price.setShiftyng_amount(shiftyng_amount);
+			session.update(price);
 		}
 
 		session.update(details);
@@ -95,6 +95,143 @@ public class Booking_details_daoImpl implements Booking_details_dao{
 		return "Updated ..!!";
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<Booking_details> getallupcomingbookings(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Booking_details where booking_status = :status and merchant_id = :merchant_id");
+		query.setParameter("status", Booking_status.BookingCompleted);
+		query.setParameter("merchant_id", id);
+		List<Booking_details> list = query.list();
+		return list;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<Booking_details> getallongoingbookings(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Booking_details where booking_status = :status and merchant_id = :merchant_id");
+		query.setParameter("status", Booking_status.PickupCompleted);
+		query.setParameter("merchant_id", id);
+		List<Booking_details> list = query.list();
+		return list;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<Booking_details> getAllCompletedBookings(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Booking_details where booking_status = :status and merchant_id = :merchant_id and shiftyng_payment_status = :s");
+		query.setParameter("status", Booking_status.DropCompleted);
+		query.setParameter("merchant_id", id);
+		query.setParameter("s", Shiftyng_payment_status.Unpaid);
+		List<Booking_details> list = query.list();
+		return list;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<Booking_details> getallcancelledbookings(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Booking_details where booking_status = :status and merchant_id = :merchant_id");
+		query.setParameter("status", Booking_status.BookingCancelled);
+		query.setParameter("merchant_id", id);
+		List<Booking_details> list = query.list();
+		return list;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<Booking_details> getallpaidbookings(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Booking_details where payment_status = :status and merchant_id = :merchant_id and shiftyng_payment_status = :s");
+		query.setParameter("status", Payment_status.Paid);
+		query.setParameter("s", Shiftyng_payment_status.Unpaid);
+		query.setParameter("merchant_id", id);
+		List<Booking_details> list = query.list();
+		return list;
+		
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public long gettotalearnings(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Booking_details where payment_status = :status and merchant_id = :merchant_id and shiftyng_payment_status = :s" );
+		query.setParameter("status", Payment_status.Paid);
+		query.setParameter("s", Shiftyng_payment_status.Unpaid);
+		query.setParameter("merchant_id", id);
+		List<Booking_details> list = query.list();
+		long total_earnings = 0;
+		Booking_details details = null;
+		Iterator itr = list.iterator();
+		while(itr.hasNext()) {
+			details = (Booking_details) itr.next();
+			total_earnings = total_earnings + details.getFinal_price_details().getGrand_total();
+		}
+		return total_earnings;
+		
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<Booking_details> getbookingsbypaymentdate(long id, Date payment_date) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Booking_details where payment_status = :status  and merchant_id = :merchant_id and payment_date = :date");
+		query.setParameter("merchant_id", id);
+		query.setParameter("status", Payment_status.Paid);
+		
+		query.setParameter("date", payment_date);
+		List<Booking_details> list = query.list();
+		return list;
+		
+		
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public long gettotalearningsbypaymentdate(long id, Date payment_date) {
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("Hello...");
+		Query query = session.createQuery("from Booking_details where payment_status = :status  and merchant_id = :merchant_id and payment_date = :date");
+		query.setParameter("merchant_id", id);
+		query.setParameter("status", Payment_status.Paid);
+		
+		query.setParameter("date", payment_date);
+		List<Booking_details> list = query.list();
+		Booking_details details = null;
+		long grand_total = 0;
+		Iterator itr = list.iterator();
+		while(itr.hasNext()) {
+			details = (Booking_details) itr.next();
+			grand_total = grand_total+ details.getFinal_price_details().getGrand_total();
+		}
+		
+		return grand_total;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public long getoperatoramount(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Booking_details where payment_status = :status and merchant_id = :merchant_id and shiftyng_payment_status = :s");
+		query.setParameter("status", Payment_status.Paid);
+		query.setParameter("s", Shiftyng_payment_status.Unpaid);
+		query.setParameter("merchant_id", id);
+		List<Booking_details> list = query.list();
+		Booking_details details = null;
+		Iterator itr = list.iterator();
+		long operator_amount = 0;
+		while(itr.hasNext()) {
+			details = (Booking_details) itr.next();
+			operator_amount = operator_amount + details.getFinal_price_details().getOperator_amount();
+		}
+		return operator_amount;
+	}
+
+	
+
+	
 		
 	
 }

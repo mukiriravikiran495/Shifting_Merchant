@@ -35,13 +35,13 @@ public class Merchant_account_daoImpl implements Merchant_account_dao{
 
 
 	@Override
-	public String createaccount(Merchant_account merchant_account) {
+	public String createaccount(Merchant_account merchant_account, long merchant_id) {
 		Session session = factory.getCurrentSession();
 			
 			Merchant_account account = new Merchant_account();
 			account.setCity(merchant_account.getCity());
 			account.setMerchant_email(merchant_account.getMerchant_email());
-			account.setMerchant_id(merchant_account.getMerchant_id());
+			account.setMerchant_id(merchant_id);
 			account.setMerchant_name(merchant_account.getMerchant_name());
 			account.setMobilenumber(merchant_account.getMobilenumber());
 			account.setOwnerormanagername(merchant_account.getOwnerormanagername());
@@ -51,7 +51,7 @@ public class Merchant_account_daoImpl implements Merchant_account_dao{
 			Merchant_profile profile = new Merchant_profile();
 			profile.setCity(merchant_account.getCity());
 			profile.setMerchant_email(merchant_account.getMerchant_email());
-			profile.setMerchant_id(merchant_account.getMerchant_id());
+			profile.setMerchant_id(merchant_id);
 			profile.setMerchant_name(merchant_account.getMerchant_name());
 			profile.setMobilenumber(merchant_account.getMobilenumber());
 			System.out.println("Hello....");
@@ -104,6 +104,24 @@ public class Merchant_account_daoImpl implements Merchant_account_dao{
 		query.setParameter("gstin_number", number);
 		GSTIN_details details = (GSTIN_details) query.list().get(0);
 		return details;
+	}
+
+
+	@Override
+	public String updateaccount(Merchant_account merchant_account, long merchant_id) {
+		Session session = factory.getCurrentSession();
+		Merchant_account account = session.get(Merchant_account.class, merchant_id);
+		System.out.println("accout "+ account.getMerchant_id());
+		account.setCity(merchant_account.getCity());
+		account.setMerchant_email(merchant_account.getMerchant_email());
+		account.setMerchant_name(merchant_account.getMerchant_name());
+		account.setMerchant_id(merchant_id);
+		account.setRegistration_date(merchant_account.getRegistration_date());
+		account.setOwnerormanagername(merchant_account.getOwnerormanagername());
+		account.setMobilenumber(merchant_account.getMobilenumber());
+		
+		session.update(account);
+		return "Updated ..!!";
 	}
 
 }

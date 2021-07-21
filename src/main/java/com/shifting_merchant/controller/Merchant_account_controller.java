@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,8 +32,15 @@ public class Merchant_account_controller {
 	}
 	
 	@PostMapping(value = "/createaccount",  headers="Accept=application/json")
-	public ResponseEntity<String> createaccount(@RequestBody Merchant_account merchant_account){
-		String message = service.createaccount(merchant_account);
+	public ResponseEntity<String> createaccount(@RequestBody Merchant_account merchant_account, long merchant_id){
+		String message = service.createaccount(merchant_account, merchant_id);
+		
+		return new ResponseEntity<String>(message,HttpStatus.OK);
+	}
+	
+	@PutMapping( value = "/updateaccount", headers="Accept=application/json")
+	public ResponseEntity<String> updateaccount(@RequestBody Merchant_account merchant_account, @RequestParam("merchant_id") long merchant_id){
+		String message = service.updateaccount(merchant_account,merchant_id);
 		
 		return new ResponseEntity<String>(message,HttpStatus.OK);
 	}
