@@ -59,7 +59,11 @@ public class Booking_details {
 	@Column( name = "drop_date")
 	private Date drop_date;
 	
+	@Column( name = "payment_date")
+	private Date payment_date;
 	
+	@Column( name = "shiftyng_payment_date")
+	private Date Shiftyng_payment_date;
 	
 	private Booking_status booking_status = Booking_status.BookingCompleted;
 	
@@ -100,6 +104,22 @@ public class Booking_details {
 	
 	
 	
+
+	public Date getShiftyng_payment_date() {
+		return Shiftyng_payment_date;
+	}
+
+	public void setShiftyng_payment_date(Date shiftyng_payment_date) {
+		Shiftyng_payment_date = shiftyng_payment_date;
+	}
+
+	public Date getPayment_date() {
+		return payment_date;
+	}
+
+	public void setPayment_date(Date payment_date) {
+		this.payment_date = payment_date;
+	}
 
 	public Shiftyng_payment_status getShiftyng_payment_status() {
 		return shiftyng_payment_status;

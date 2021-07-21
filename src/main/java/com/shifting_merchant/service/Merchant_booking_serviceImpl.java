@@ -25,10 +25,21 @@ public class Merchant_booking_serviceImpl implements Merchant_booking_service{
 		return dao.getBookingsByMerchant_id(id);
 	}
 
+	
+
 	@Override
-	public String placeorder(Merchant_booking merchant_booking) {
-		
-		return dao.placeOrder(merchant_booking);
+	public List<Merchant_booking> getallupcomingbookings(long merchant_id) {
+		return dao.getallupcomingbookings(merchant_id);
+	}
+
+	@Override
+	public List<Merchant_booking> getallongoingbookings(long merchant_id) {
+		return dao.getallongoingbookings(merchant_id);
+	}
+
+	@Override
+	public List<Merchant_booking> getallcompletedbookings(long merchant_id) {
+		return dao.getallcompletedbookings(merchant_id);
 	}
 
 	

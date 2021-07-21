@@ -90,7 +90,7 @@ public class Merchant_profile_daoImpl implements Merchant_profile_dao{
 		
 		//session.saveOrUpdate(details);
 		session.save(details);
-		return null;
+		return "inserted ..!!";
 	}
 	
 	@Override
@@ -155,7 +155,7 @@ public class Merchant_profile_daoImpl implements Merchant_profile_dao{
 		else {
 			profile.setCity(merchant_profile.getCity());
 			profile.setMerchant_email(merchant_profile.getMerchant_email());
-			profile.setMerchant_id(merchant_profile.getMerchant_id());
+			profile.setMerchant_id(merchant_id);
 			profile.setMerchant_name(merchant_profile.getMerchant_name());
 			profile.setMobilenumber(merchant_profile.getMobilenumber());
 			session.update(profile);

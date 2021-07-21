@@ -40,13 +40,16 @@ public class Merchant_credentials_daoImpl implements Merchant_credentials_dao{
 					user.setMerchant_password(val.getMerchant_password());
 					session.save(user); 
 					
-					Merchant_reviews reviews = new Merchant_reviews();
-					reviews.setMerchant_id(val.getMerchant_id());
-					return " User Created";
 				}			
 				else {						
 					return "User already Exists ..!!";
 				}
+				Merchant_reviews reviews = new Merchant_reviews();
+				reviews.setMerchant_id(val.getMerchant_id());
+				session.save(reviews);
+				
+				
+				return " User Created";
 	}
 
 	@SuppressWarnings("rawtypes")

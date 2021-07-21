@@ -3,14 +3,12 @@ package com.shifting_merchant.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shifting_merchant.dao.Merchant_booking_dao;
@@ -39,11 +37,7 @@ public class Merchant_booking_controller {
 		return service.getBookingsByMerchant_id(id);		
 	}
 	
-	@PostMapping( value = "/placeorder",  headers="Accept=application/json")
-	public ResponseEntity<String> placeOrder(@RequestBody Merchant_booking merchant_booking) {
-		String message =  service.placeorder(merchant_booking);
-		return new ResponseEntity<String>(message,HttpStatus.OK);
-	}
+	
 	
 	@PostMapping( value = "/update", headers="Accept=application/json")
 	public String update(Merchant_details merchant_profile) {
@@ -51,5 +45,24 @@ public class Merchant_booking_controller {
 		return dao.update(merchant_profile);
 	}
 	
+	
+	@GetMapping( value = "/getallupcomingbookings")
+	public List<Merchant_booking> getallupcomingbookings(@RequestParam("merchant_id") long merchant_id){
+		List<Merchant_booking> list = service.getallupcomingbookings(merchant_id);
+		return list;
+	}
+	
+	
+	@GetMapping( value = "/getallongoingbookings")
+	public List<Merchant_booking> getallongoingbookings(@RequestParam("merchant_id") long merchant_id){
+		List<Merchant_booking> list = service.getallongoingbookings(merchant_id);
+		return list;
+	}
+	
+	@GetMapping( value = "/getallcompletedbookings")
+	public List<Merchant_booking> getallcompletedbookings(@RequestParam("merchant_id") long merchant_id){
+		List<Merchant_booking> list = service.getallcompletedbookings(merchant_id);
+		return list;
+	}
 	
 }
