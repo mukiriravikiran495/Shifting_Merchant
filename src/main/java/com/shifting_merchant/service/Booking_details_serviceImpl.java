@@ -82,6 +82,16 @@ public class Booking_details_serviceImpl implements Booking_details_service{
 		return dao.getoperatoramount(merchant_id);
 	}
 
+	@Override
+	public long getcurrentbalance(long merchant_id) {
+		return dao.getcurrentbalance(merchant_id);
+	}
+
+	@Override
+	public List<Booking_details> getalltodaybooking(long merchant_id) {
+		return dao.getalltodaybookings(merchant_id);
+	}
+
 	
 
 	
