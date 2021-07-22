@@ -229,6 +229,42 @@ public class Booking_details_daoImpl implements Booking_details_dao{
 		return operator_amount;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public long getcurrentbalance(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Booking_details where payment_status = :status and merchant_id = :merchant_id and shiftyng_payment_status = :s and payment_date = :date");
+		query.setParameter("status", Payment_status.Paid);
+		query.setParameter("merchant_id", id);
+		query.setParameter("s", Shiftyng_payment_status.Unpaid);
+		Date payment_date = new Date();
+		query.setParameter("date", payment_date);
+		List<Booking_details> list = query.list();
+		Booking_details details = null;
+		long total = 0;
+		Iterator itr = list.iterator();
+		while(itr.hasNext()) {
+			details = (Booking_details) itr.next();
+			total = total + details.getFinal_price_details().getGrand_total();
+			
+		}
+		return total;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<Booking_details> getalltodaybookings(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Booking_details where payment_status = :status and merchant_id = :merchant_id and shiftyng_payment_status = :s and payment_date = :date");
+		query.setParameter("status", Payment_status.Paid);
+		query.setParameter("merchant_id", id);
+		query.setParameter("s", Shiftyng_payment_status.Unpaid);
+		Date payment_date = new Date();
+		query.setParameter("date", payment_date);
+		List<Booking_details> list = query.list();
+		return list;
+	}
+
 	
 
 	

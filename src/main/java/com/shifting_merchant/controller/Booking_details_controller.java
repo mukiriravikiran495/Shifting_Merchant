@@ -75,6 +75,19 @@ public class Booking_details_controller {
 		return list;
 	}
 	
+	// Current balance page
+	@GetMapping( value = "/getcurrentbalance")
+	public long getcurrentbalance(@RequestParam("merchant_id") long merchant_id) {
+		return service.getcurrentbalance(merchant_id);
+	}
+	
+	// Current balance page
+	@GetMapping( value = "/getalltodaybookings")
+	public List<Booking_details> gettodaybookings(@RequestParam("merchant_id") long merchant_id){
+		return service.getalltodaybooking(merchant_id);
+	}
+	
+	
 	
 	// get amount based on payment status paid and shiftyng payment unpaid
 	@GetMapping( value = "/gettotalearnings")
@@ -83,7 +96,7 @@ public class Booking_details_controller {
 	}
 	
 	//Today Bookings
-	@GetMapping( value = "/getalltodaybookings")
+	@GetMapping( value = "/getbookingsbypaymentdate")
 	public List<Booking_details> getbookingsbypaymentdate(@RequestParam("merchant_id") long merchant_id,@RequestParam("payment_date") String payment_date){
 		Date date = null;
 		try {

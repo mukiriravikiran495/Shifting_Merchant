@@ -14,10 +14,6 @@ public interface Booking_details_dao {
 
 	Booking_details getBookingById(long id);
 
-	
-
-	
-
 	String confirmpickup(Booking_details booking_details, long booking_id);
 
 	String confirmdrop(Booking_details booking_details, long booking_id);
@@ -39,6 +35,10 @@ public interface Booking_details_dao {
 	long gettotalearningsbypaymentdate(long merchant_id, Date date);
 
 	long getoperatoramount(long merchant_id);
+
+	long getcurrentbalance(long merchant_id);
+
+	List<Booking_details> getalltodaybookings(long merchant_id);
 
 	
 }

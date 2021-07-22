@@ -42,6 +42,10 @@ public interface Booking_details_service {
 	long gettotalearningsbypaymentdate(long merchant_id, Date date);
 
 	long getoperatoramount(long merchant_id);
+
+	long getcurrentbalance(long merchant_id);
+
+	List<Booking_details> getalltodaybooking(long merchant_id);
 	
 	
 
