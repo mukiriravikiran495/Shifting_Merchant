@@ -1,6 +1,8 @@
 package com.shifting_merchant.dao;
 
 
+
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shifting_merchant.model.Booking_details;
 import com.shifting_merchant.model.Booking_status;
 import com.shifting_merchant.model.Final_price_details;
+import com.shifting_merchant.model.Net_earnings_by_date;
 import com.shifting_merchant.model.Payment_mode;
 import com.shifting_merchant.model.Payment_status;
 import com.shifting_merchant.model.Shiftyng_payment_status;
@@ -261,6 +264,61 @@ public class Booking_details_daoImpl implements Booking_details_dao{
 		query.setParameter("s", Shiftyng_payment_status.Unpaid);
 		Date payment_date = new Date();
 		query.setParameter("date", payment_date);
+		List<Booking_details> list = query.list();
+		return list;
+	}
+
+	
+	@SuppressWarnings({ "rawtypes", "null", "unused" })
+	@Override
+	public List<Net_earnings_by_date> getnetearningsbydate(long merchant_id) {
+		
+		
+		Date startdate = null, enddate = null;
+		startdate = new Date();
+			
+			Calendar cal = Calendar.getInstance();
+	        cal.add(Calendar.DATE, -7);
+	        Date todate1 = cal.getTime();     
+	        
+	        
+		
+		//Date d = new Date();
+		Calendar start = Calendar.getInstance();
+		start.setTime(startdate);
+		Calendar end = Calendar.getInstance();
+		end.setTime(todate1);
+
+		for (Date date = start.getTime(); start.before(end);  date = start.getTime()) {
+		    // Do your job here with `date`.
+		    System.out.println("date     "  +date);
+		    List<Booking_details> l = getbookingdetails(merchant_id,date);
+		    Iterator itr = l.iterator();
+		    Booking_details details = null;
+		    List<Net_earnings_by_date> list = null ;
+		    Net_earnings_by_date net = null ;
+		    while(itr.hasNext()) {
+		    	details = (Booking_details) itr.next();
+		    	net.setDate(details.getPickup_date());
+		    	net.setAmount(details.getFinal_price_details().getGrand_total());
+		    	list.add(net);
+		    	
+		    }
+		    return list;
+		    
+		}
+        
+		
+		return null;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private List<Booking_details> getbookingdetails(long id, Date d) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Booking_details where merchant_id = :merchant_id and payment_date = :date and payment_status = :status");
+		query.setParameter("merchant_id", id);
+		query.setParameter("date", d);
+		query.setParameter("status", Payment_status.Paid);
 		List<Booking_details> list = query.list();
 		return list;
 	}

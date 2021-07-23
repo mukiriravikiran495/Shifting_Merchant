@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shifting_merchant.model.Booking_details;
+import com.shifting_merchant.model.Net_earnings_by_date;
 import com.shifting_merchant.service.Booking_details_service;
 
 @RestController
@@ -81,7 +82,7 @@ public class Booking_details_controller {
 		return service.getcurrentbalance(merchant_id);
 	}
 	
-	// Current balance page
+	// Current balance page get bookings where payment status paid and shiftyng payment status unpaid
 	@GetMapping( value = "/getalltodaybookings")
 	public List<Booking_details> gettodaybookings(@RequestParam("merchant_id") long merchant_id){
 		return service.getalltodaybooking(merchant_id);
@@ -89,11 +90,27 @@ public class Booking_details_controller {
 	
 	
 	
-	// get amount based on payment status paid and shiftyng payment unpaid
+	
+	// Total earnings page  get amount based on payment status paid and shiftyng payment unpaid
 	@GetMapping( value = "/gettotalearnings")
 	public long gettotalearnings(@RequestParam("merchant_id") long merchant_id) {
 		return service.gettotalearnings(merchant_id);
 	}
+	
+	// Total earnings page = get all paid bookings and shiftyng payment unpaid
+	@GetMapping( value = "/getallpaidbookings")
+	public List<Booking_details> getallpaidbookings(@RequestParam("merchant_id") long merchant_id){
+		List<Booking_details> list = service.getallpaidbookings(merchant_id);
+		return list;
+	}
+	
+	
+	// used for net earnings by date page 
+	@GetMapping( value = "/getearningsbydate")
+	public List<Net_earnings_by_date> getNet_earnings_by_date(@RequestParam("merchant_id") long merchant_id){
+		return service.getnetearningsbydate(merchant_id);
+	}
+	
 	
 	//Today Bookings
 	@GetMapping( value = "/getbookingsbypaymentdate")
@@ -122,12 +139,7 @@ public class Booking_details_controller {
 	}
 	
 	// operator amount page = get all bookings based on payment paid and shiftyng payment unpaid used for operator amount page
-	@GetMapping( value = "/getallpaidbookings")
-	public List<Booking_details> getallpaidbookings(@RequestParam("merchant_id") long merchant_id){
-		List<Booking_details> list = service.getallpaidbookings(merchant_id);
-		return list;
-	}
-		
+	
 	@GetMapping( value = "/getoperatoramount")
 	public long getoperatoramount(@RequestParam("merchant_id") long merchant_id){
 		return  service.getoperatoramount(merchant_id);
