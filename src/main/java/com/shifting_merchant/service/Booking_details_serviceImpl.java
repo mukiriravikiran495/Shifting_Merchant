@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.shifting_merchant.dao.Booking_details_dao;
 
 import com.shifting_merchant.model.Booking_details;
+import com.shifting_merchant.model.Net_earnings_by_date;
 
 @Service("booking_details_service")
 public class Booking_details_serviceImpl implements Booking_details_service{
@@ -90,6 +91,11 @@ public class Booking_details_serviceImpl implements Booking_details_service{
 	@Override
 	public List<Booking_details> getalltodaybooking(long merchant_id) {
 		return dao.getalltodaybookings(merchant_id);
+	}
+
+	@Override
+	public List<Net_earnings_by_date> getnetearningsbydate(long merchant_id) {
+		return dao.getnetearningsbydate(merchant_id);
 	}
 
 	

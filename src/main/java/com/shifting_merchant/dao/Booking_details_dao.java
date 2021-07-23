@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import com.shifting_merchant.model.Booking_details;
+import com.shifting_merchant.model.Net_earnings_by_date;
 
 public interface Booking_details_dao {
 
@@ -39,6 +40,8 @@ public interface Booking_details_dao {
 	long getcurrentbalance(long merchant_id);
 
 	List<Booking_details> getalltodaybookings(long merchant_id);
+
+	List<Net_earnings_by_date> getnetearningsbydate(long merchant_id);
 
 	
 }
